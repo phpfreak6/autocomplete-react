@@ -34,6 +34,12 @@ export default function SearchComponent(props) {
         }
     }
 
+    const inputChangeHandler = (event) => {
+        setSelectedData((previousData) => {
+            return { ...previousData, [event.target.name]: event.target.value };
+        });
+    }
+
     function keyDownHandler(event) {
         if (event.keyCode === 38 && cursor > 0) {
             setCursor((previousCursor) => previousCursor - 1);
@@ -54,8 +60,8 @@ export default function SearchComponent(props) {
                     <h4>Search Module</h4>
                     <input
                         ref={search_item}
-                        onKeyDown={keyDownHandler}
                         onChange={debouncedChangeHandler}
+                        onKeyDown={keyDownHandler}
                         onKeyPress={submitHandler}
                         type='text' />
                     <ul className='items-list'>
@@ -86,63 +92,88 @@ export default function SearchComponent(props) {
                 </center>
             </div>
             <div style={{ width: '40%', float: 'right', padding: '50px 50px 50px 50px' }}>
-                {selectedData && (
+                {
+                    selectedData &&
                     <div className='selecetdItem'>
-                        <table id='selected_item_table'>
-                            <thead>
-                                <tr>
-                                    <th colSpan='2'>SELECTED ITEM</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>SKU ID</td>
-                                    <td>{selectedData.sku_id}</td>
-                                </tr>
-                                <tr>
-                                    <td>SKU NAME</td>
-                                    <td>{selectedData.sku_name}</td>
-                                </tr>
-                                <tr>
-                                    <td>PRODUCT CODE</td>
-                                    <td>{selectedData.product_code}</td>
-                                </tr>
-                                <tr>
-                                    <td>BAR CODE</td>
-                                    <td>{selectedData.barcode}</td>
-                                </tr>
-                                <tr>
-                                    <td>STOCK IN</td>
-                                    <td>{selectedData.stock_in}</td>
-                                </tr>
-                                <tr>
-                                    <td>STOCK OUT</td>
-                                    <td>{selectedData.stock_out}</td>
-                                </tr>
-                                <tr>
-                                    <td>STOCK ON HAND</td>
-                                    <td>{selectedData.stock_on_hand}</td>
-                                </tr>
-                                <tr>
-                                    <td>STOCK RESERVED</td>
-                                    <td>{selectedData.stock_reserved}</td>
-                                </tr>
-                                <tr>
-                                    <td>STOCK AVAILABLE</td>
-                                    <td>{selectedData.stock_available}</td>
-                                </tr>
-                                <tr>
-                                    <td>MODIFIED DATE</td>
-                                    <td>{selectedData.modified_date}</td>
-                                </tr>
-                                <tr>
-                                    <td>CREATED DATE</td>
-                                    <td>{selectedData.created_date}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <form>
+                            <table id='selected_item_table'>
+                                <thead>
+                                    <tr>
+                                        <th colSpan='2'>SELECTED ITEM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>SKU ID</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='sku_id' value={selectedData.sku_id} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SKU NAME</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='sku_name' value={selectedData.sku_name} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PRODUCT CODE</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='product_code' value={selectedData.product_code} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BAR CODE</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='barcode' value={selectedData.barcode} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>STOCK IN</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='stock_in' value={selectedData.stock_in} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>STOCK OUT</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='stock_out' value={selectedData.stock_out} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>STOCK ON HAND</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='stock_on_hand' value={selectedData.stock_on_hand} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>STOCK RESERVED</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='stock_reserved' value={selectedData.stock_reserved} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>STOCK AVAILABLE</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='stock_available' value={selectedData.stock_available} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>MODIFIED DATE</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='modified_date' value={selectedData.modified_date} />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CREATED DATE</td>
+                                        <td>
+                                            <input onChange={inputChangeHandler} type='text' name='created_date' value={selectedData.created_date} />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
-                )}
+                }
             </div>
         </div>
     );
